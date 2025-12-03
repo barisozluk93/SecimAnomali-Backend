@@ -1,0 +1,22 @@
+[
+  {
+    "ContainingType": "MapManagementService.Controllers.MapController",
+    "Method": "GetIlSinirlari",
+    "RelativePath": "api/Map/GetIlSinirlari",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MapManagementService.Controllers.MapController",
+    "Method": "GetIlceSinirlari",
+    "RelativePath": "api/Map/GetIlceSinirlari",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

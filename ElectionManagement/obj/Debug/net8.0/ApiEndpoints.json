@@ -1,0 +1,268 @@
+[
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "GetElectionCities",
+    "RelativePath": "api/Election/GetElectionCities/{electionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "electionId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "GetElectionDistricts",
+    "RelativePath": "api/Election/GetElectionDistricts/{electionId}/{cityId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "electionId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "cityId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "GetElectionGeneralResult",
+    "RelativePath": "api/Election/GetElectionGeneralResult/{electionId}/{cityId}/{districtId}/{neighborhoodId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "electionId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "cityId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "districtId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "neighborhoodId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "GetElectionHeaders",
+    "RelativePath": "api/Election/GetElectionHeaders/{electionId}/{cityId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "electionId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "cityId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "GetElectionNeighborhoods",
+    "RelativePath": "api/Election/GetElectionNeighborhoods/{electionId}/{cityId}/{districtId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "electionId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "cityId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "districtId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "GetElectionResultByCity",
+    "RelativePath": "api/Election/GetElectionResultByCity/{electionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "electionId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "GetElectionResultByDistrict",
+    "RelativePath": "api/Election/GetElectionResultByDistrict/{electionId}/{cityId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "electionId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "cityId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "GetElections",
+    "RelativePath": "api/Election/GetElections",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "GetTurkeyElectionPartyResult",
+    "RelativePath": "api/Election/GetTurkeyElectionPartyResult/{electionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "electionId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "GetTurkeyElectionPartyResultByCity",
+    "RelativePath": "api/Election/GetTurkeyElectionPartyResultByCity/{electionId}/{cityId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "electionId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "cityId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "GetTurkeyElectionPartyResultByDistrict",
+    "RelativePath": "api/Election/GetTurkeyElectionPartyResultByDistrict/{electionId}/{cityId}/{districtId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "electionId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "cityId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "districtId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ElectionManagement.Controllers.ElectionController",
+    "Method": "Paginate",
+    "RelativePath": "api/Election/Paginate",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ElectionId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "CityId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "DistrictId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "NeighborhoodId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
