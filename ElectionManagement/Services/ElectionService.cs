@@ -333,76 +333,120 @@ namespace ElectionManagement.Services
                 try
                 {
                     var secimBasliklar = await _dbContext.SecimSonucBasliklar.Where(x => x.SecimId == electionId).ToListAsync();
-                    var toplamGecerliOy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => s.gecerli_OY_TOPLAMI);
 
-                    var sonuc = new List<TumTurkiyeKazananPartiler>
-    {
-        new TumTurkiyeKazananPartiler { Parti = "parti1_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti1_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti2_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti2_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti3_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti3_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti4_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti4_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti5_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti5_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti6_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti6_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti7_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti7_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti8_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti8_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti9_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti9_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti10_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti10_ALDIGI_OY) },
+                    var partiToplamOylari = await _dbContext.SecimSonuclar
+                            .Where(x => x.SecimId == electionId)
+                            .GroupBy(s => s.SecimId)
+                            .Select(g => new
+                            {
+                                p1 = g.Sum(x => x.parti1_ALDIGI_OY),
+                                p2 = g.Sum(x => x.parti2_ALDIGI_OY),
+                                p3 = g.Sum(x => x.parti3_ALDIGI_OY),
+                                p4 = g.Sum(x => x.parti4_ALDIGI_OY),
+                                p5 = g.Sum(x => x.parti5_ALDIGI_OY),
+                                p6 = g.Sum(x => x.parti6_ALDIGI_OY),
+                                p7 = g.Sum(x => x.parti7_ALDIGI_OY),
+                                p8 = g.Sum(x => x.parti8_ALDIGI_OY),
+                                p9 = g.Sum(x => x.parti9_ALDIGI_OY),
+                                p10 = g.Sum(x => x.parti10_ALDIGI_OY),
+                                p11 = g.Sum(x => x.parti11_ALDIGI_OY),
+                                p12 = g.Sum(x => x.parti12_ALDIGI_OY),
+                                p13 = g.Sum(x => x.parti13_ALDIGI_OY),
+                                p14 = g.Sum(x => x.parti14_ALDIGI_OY),
+                                p15 = g.Sum(x => x.parti15_ALDIGI_OY),
+                                p16 = g.Sum(x => x.parti16_ALDIGI_OY),
+                                p17 = g.Sum(x => x.parti17_ALDIGI_OY),
+                                p18 = g.Sum(x => x.parti18_ALDIGI_OY),
+                                p19 = g.Sum(x => x.parti19_ALDIGI_OY),
+                                p20 = g.Sum(x => x.parti20_ALDIGI_OY),
+                                p21 = g.Sum(x => x.parti21_ALDIGI_OY),
+                                p22 = g.Sum(x => x.parti22_ALDIGI_OY),
+                                p23 = g.Sum(x => x.parti23_ALDIGI_OY),
+                                p24 = g.Sum(x => x.parti24_ALDIGI_OY),
+                                p25 = g.Sum(x => x.parti25_ALDIGI_OY),
+                                p26 = g.Sum(x => x.parti26_ALDIGI_OY),
+                                p27 = g.Sum(x => x.parti27_ALDIGI_OY),
+                                p28 = g.Sum(x => x.parti28_ALDIGI_OY),
+                                p29 = g.Sum(x => x.parti29_ALDIGI_OY),
+                                p30 = g.Sum(x => x.parti30_ALDIGI_OY),
+                                p31 = g.Sum(x => x.parti31_ALDIGI_OY),
+                                p32 = g.Sum(x => x.parti32_ALDIGI_OY),
+                                p33 = g.Sum(x => x.parti33_ALDIGI_OY),
+                                p34 = g.Sum(x => x.parti34_ALDIGI_OY),
+                                p35 = g.Sum(x => x.parti35_ALDIGI_OY),
+                                p36 = g.Sum(x => x.parti36_ALDIGI_OY),
+                                p37 = g.Sum(x => x.parti37_ALDIGI_OY),
+                                p38 = g.Sum(x => x.parti38_ALDIGI_OY),
+                                p39 = g.Sum(x => x.parti39_ALDIGI_OY),
+                                p40 = g.Sum(x => x.parti40_ALDIGI_OY)
+                            })
+                            .ToListAsync();
 
-        new TumTurkiyeKazananPartiler { Parti = "parti11_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti11_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti12_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti12_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti13_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti13_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti14_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti14_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti15_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti15_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti16_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti16_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti17_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti17_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti18_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti18_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti19_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti19_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti20_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti20_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti21_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti21_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti22_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti22_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti23_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti23_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti24_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti24_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti25_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti25_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti26_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti26_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti27_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti27_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti28_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti28_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti29_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti29_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti30_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti30_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti31_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti31_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti32_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti32_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti33_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti33_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti34_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti34_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti35_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti35_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti36_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti36_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti37_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti37_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti38_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti38_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti39_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti39_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti40_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId).SumAsync(s => (long)s.parti40_ALDIGI_OY) }
-    };
-
-                    sonuc.ForEach(p =>
+                    var sonuc = partiToplamOylari.Select(p =>
                     {
-                        p.LogoPath = secimBasliklar.Where(b => b.column_NAME.ToLower() == p.Parti.ToLower()).Select(s => s.LogoPath).FirstOrDefault();
-                        p.Legend = secimBasliklar.Where(b => b.column_NAME.ToLower() == p.Parti.ToLower()).Select(s => s.Legend).FirstOrDefault();
-                        p.Parti = secimBasliklar.Where(b => b.column_NAME.ToLower() == p.Parti.ToLower()).Select(s => s.ad).FirstOrDefault();
-                        p.Oran = toplamGecerliOy == 0
-                            ? 0
-                            : Math.Round((double)p.Oy / toplamGecerliOy * 100, 2);
-                    });
+                        var partiOylar = new Dictionary<string, long>
+                        {
+                            ["parti1_ALDIGI_OY"] = p.p1,
+                            ["parti2_ALDIGI_OY"] = p.p2,
+                            ["parti3_ALDIGI_OY"] = p.p3,
+                            ["parti4_ALDIGI_OY"] = p.p4,
+                            ["parti5_ALDIGI_OY"] = p.p5,
+                            ["parti6_ALDIGI_OY"] = p.p6,
+                            ["parti7_ALDIGI_OY"] = p.p7,
+                            ["parti8_ALDIGI_OY"] = p.p8,
+                            ["parti9_ALDIGI_OY"] = p.p9,
+                            ["parti10_ALDIGI_OY"] = p.p10,
+                            ["parti11_ALDIGI_OY"] = p.p11,
+                            ["parti12_ALDIGI_OY"] = p.p12,
+                            ["parti13_ALDIGI_OY"] = p.p13,
+                            ["parti14_ALDIGI_OY"] = p.p14,
+                            ["parti15_ALDIGI_OY"] = p.p15,
+                            ["parti16_ALDIGI_OY"] = p.p16,
+                            ["parti17_ALDIGI_OY"] = p.p17,
+                            ["parti18_ALDIGI_OY"] = p.p18,
+                            ["parti19_ALDIGI_OY"] = p.p19,
+                            ["parti20_ALDIGI_OY"] = p.p20,
+                            ["parti21_ALDIGI_OY"] = p.p21,
+                            ["parti22_ALDIGI_OY"] = p.p22,
+                            ["parti23_ALDIGI_OY"] = p.p23,
+                            ["parti24_ALDIGI_OY"] = p.p24,
+                            ["parti25_ALDIGI_OY"] = p.p25,
+                            ["parti26_ALDIGI_OY"] = p.p26,
+                            ["parti27_ALDIGI_OY"] = p.p27,
+                            ["parti28_ALDIGI_OY"] = p.p28,
+                            ["parti29_ALDIGI_OY"] = p.p29,
+                            ["parti30_ALDIGI_OY"] = p.p30,
+                            ["parti31_ALDIGI_OY"] = p.p31,
+                            ["parti32_ALDIGI_OY"] = p.p32,
+                            ["parti33_ALDIGI_OY"] = p.p33,
+                            ["parti34_ALDIGI_OY"] = p.p34,
+                            ["parti35_ALDIGI_OY"] = p.p35,
+                            ["parti36_ALDIGI_OY"] = p.p36,
+                            ["parti37_ALDIGI_OY"] = p.p37,
+                            ["parti38_ALDIGI_OY"] = p.p38,
+                            ["parti39_ALDIGI_OY"] = p.p39,
+                            ["parti40_ALDIGI_OY"] = p.p40,
+                        };
+                        long toplam = partiOylar.Sum(p => p.Value);
 
-                    var data = sonuc
-                        .OrderByDescending(p => p.Oy)
-                        .Take(5)
-                        .ToList();
+                        return partiOylar
+                            .Where(x => x.Value > 0)
+                            .Select(x => new TumTurkiyeKazananPartiler
+                            {
+                                LogoPath = secimBasliklar.Where(b => b.column_NAME.ToLower() == x.Key.ToLower().ToLower()).Select(s => s.LogoPath).FirstOrDefault(),
+                                Legend = secimBasliklar.Where(b => b.column_NAME.ToLower() == x.Key.ToLower().ToLower()).Select(s => s.Legend).FirstOrDefault(),
+                                Parti = secimBasliklar.Where(b => b.column_NAME.ToLower() == x.Key.ToLower()).Select(s => s.ad).FirstOrDefault(),
+                                Oy = x.Value,
+                                Oran = Math.Round((double)x.Value * 100 / toplam, 2)
+                            })
+                            .OrderByDescending(x => x.Oy)
+                            .Take(5)
+                            .ToList();
 
-                    result.SetData(data);
-                    result.SetMessage("İşlem Başarı ile gerçekleştirildi.");
+                    }).FirstOrDefault();
 
+                    result.SetData(sonuc);
+                    result.SetMessage("İşlem başarı ile gerçekleştirildi.");
                 }
                 catch (Exception ex)
                 {
@@ -423,75 +467,120 @@ namespace ElectionManagement.Services
                 try
                 {
                     var secimBasliklar = await _dbContext.SecimSonucBasliklar.Where(x => x.SecimId == electionId).ToListAsync();
-                    var toplamGecerliOy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => s.gecerli_OY_TOPLAMI);
 
-                    var sonuc = new List<TumTurkiyeKazananPartiler>
-    {
-        new TumTurkiyeKazananPartiler { Parti = "parti1_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti1_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti2_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti2_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti3_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti3_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti4_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti4_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti5_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti5_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti6_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti6_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti7_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti7_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti8_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti8_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti9_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti9_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti10_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti10_ALDIGI_OY) },
+                    var partiToplamOylari = await _dbContext.SecimSonuclar
+                            .Where(x => x.SecimId == electionId && x.il_ID == cityId)
+                            .GroupBy(s => s.il_ID)
+                            .Select(g => new
+                            {
+                                p1 = g.Sum(x => x.parti1_ALDIGI_OY),
+                                p2 = g.Sum(x => x.parti2_ALDIGI_OY),
+                                p3 = g.Sum(x => x.parti3_ALDIGI_OY),
+                                p4 = g.Sum(x => x.parti4_ALDIGI_OY),
+                                p5 = g.Sum(x => x.parti5_ALDIGI_OY),
+                                p6 = g.Sum(x => x.parti6_ALDIGI_OY),
+                                p7 = g.Sum(x => x.parti7_ALDIGI_OY),
+                                p8 = g.Sum(x => x.parti8_ALDIGI_OY),
+                                p9 = g.Sum(x => x.parti9_ALDIGI_OY),
+                                p10 = g.Sum(x => x.parti10_ALDIGI_OY),
+                                p11 = g.Sum(x => x.parti11_ALDIGI_OY),
+                                p12 = g.Sum(x => x.parti12_ALDIGI_OY),
+                                p13 = g.Sum(x => x.parti13_ALDIGI_OY),
+                                p14 = g.Sum(x => x.parti14_ALDIGI_OY),
+                                p15 = g.Sum(x => x.parti15_ALDIGI_OY),
+                                p16 = g.Sum(x => x.parti16_ALDIGI_OY),
+                                p17 = g.Sum(x => x.parti17_ALDIGI_OY),
+                                p18 = g.Sum(x => x.parti18_ALDIGI_OY),
+                                p19 = g.Sum(x => x.parti19_ALDIGI_OY),
+                                p20 = g.Sum(x => x.parti20_ALDIGI_OY),
+                                p21 = g.Sum(x => x.parti21_ALDIGI_OY),
+                                p22 = g.Sum(x => x.parti22_ALDIGI_OY),
+                                p23 = g.Sum(x => x.parti23_ALDIGI_OY),
+                                p24 = g.Sum(x => x.parti24_ALDIGI_OY),
+                                p25 = g.Sum(x => x.parti25_ALDIGI_OY),
+                                p26 = g.Sum(x => x.parti26_ALDIGI_OY),
+                                p27 = g.Sum(x => x.parti27_ALDIGI_OY),
+                                p28 = g.Sum(x => x.parti28_ALDIGI_OY),
+                                p29 = g.Sum(x => x.parti29_ALDIGI_OY),
+                                p30 = g.Sum(x => x.parti30_ALDIGI_OY),
+                                p31 = g.Sum(x => x.parti31_ALDIGI_OY),
+                                p32 = g.Sum(x => x.parti32_ALDIGI_OY),
+                                p33 = g.Sum(x => x.parti33_ALDIGI_OY),
+                                p34 = g.Sum(x => x.parti34_ALDIGI_OY),
+                                p35 = g.Sum(x => x.parti35_ALDIGI_OY),
+                                p36 = g.Sum(x => x.parti36_ALDIGI_OY),
+                                p37 = g.Sum(x => x.parti37_ALDIGI_OY),
+                                p38 = g.Sum(x => x.parti38_ALDIGI_OY),
+                                p39 = g.Sum(x => x.parti39_ALDIGI_OY),
+                                p40 = g.Sum(x => x.parti40_ALDIGI_OY)
+                            })
+                            .ToListAsync();
 
-        new TumTurkiyeKazananPartiler { Parti = "parti11_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti11_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti12_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti12_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti13_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti13_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti14_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti14_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti15_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti15_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti16_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti16_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti17_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti17_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti18_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti18_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti19_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti19_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti20_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti20_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti21_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti21_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti22_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti22_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti23_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti23_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti24_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti24_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti25_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti25_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti26_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti26_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti27_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti27_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti28_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti28_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti29_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti29_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti30_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti30_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti31_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti31_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti32_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti32_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti33_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti33_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti34_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti34_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti35_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti35_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti36_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti36_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti37_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti37_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti38_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti38_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti39_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti39_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti40_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId).SumAsync(s => (long)s.parti40_ALDIGI_OY) }
-    };
-
-                    sonuc.ForEach(p =>
+                    var sonuc = partiToplamOylari.Select(p =>
                     {
-                        p.LogoPath = secimBasliklar.Where(b => b.column_NAME.ToLower() == p.Parti.ToLower()).Select(s => s.LogoPath).FirstOrDefault();
-                        p.Legend = secimBasliklar.Where(b => b.column_NAME.ToLower() == p.Parti.ToLower()).Select(s => s.Legend).FirstOrDefault();
-                        p.Parti = secimBasliklar.Where(b => b.column_NAME.ToLower() == p.Parti.ToLower()).Select(s => s.ad).FirstOrDefault();
-                        p.Oran = toplamGecerliOy == 0
-                            ? 0
-                            : Math.Round((double)p.Oy / toplamGecerliOy * 100, 2);
-                    });
+                        var partiOylar = new Dictionary<string, long>
+                        {
+                            ["parti1_ALDIGI_OY"] = p.p1,
+                            ["parti2_ALDIGI_OY"] = p.p2,
+                            ["parti3_ALDIGI_OY"] = p.p3,
+                            ["parti4_ALDIGI_OY"] = p.p4,
+                            ["parti5_ALDIGI_OY"] = p.p5,
+                            ["parti6_ALDIGI_OY"] = p.p6,
+                            ["parti7_ALDIGI_OY"] = p.p7,
+                            ["parti8_ALDIGI_OY"] = p.p8,
+                            ["parti9_ALDIGI_OY"] = p.p9,
+                            ["parti10_ALDIGI_OY"] = p.p10,
+                            ["parti11_ALDIGI_OY"] = p.p11,
+                            ["parti12_ALDIGI_OY"] = p.p12,
+                            ["parti13_ALDIGI_OY"] = p.p13,
+                            ["parti14_ALDIGI_OY"] = p.p14,
+                            ["parti15_ALDIGI_OY"] = p.p15,
+                            ["parti16_ALDIGI_OY"] = p.p16,
+                            ["parti17_ALDIGI_OY"] = p.p17,
+                            ["parti18_ALDIGI_OY"] = p.p18,
+                            ["parti19_ALDIGI_OY"] = p.p19,
+                            ["parti20_ALDIGI_OY"] = p.p20,
+                            ["parti21_ALDIGI_OY"] = p.p21,
+                            ["parti22_ALDIGI_OY"] = p.p22,
+                            ["parti23_ALDIGI_OY"] = p.p23,
+                            ["parti24_ALDIGI_OY"] = p.p24,
+                            ["parti25_ALDIGI_OY"] = p.p25,
+                            ["parti26_ALDIGI_OY"] = p.p26,
+                            ["parti27_ALDIGI_OY"] = p.p27,
+                            ["parti28_ALDIGI_OY"] = p.p28,
+                            ["parti29_ALDIGI_OY"] = p.p29,
+                            ["parti30_ALDIGI_OY"] = p.p30,
+                            ["parti31_ALDIGI_OY"] = p.p31,
+                            ["parti32_ALDIGI_OY"] = p.p32,
+                            ["parti33_ALDIGI_OY"] = p.p33,
+                            ["parti34_ALDIGI_OY"] = p.p34,
+                            ["parti35_ALDIGI_OY"] = p.p35,
+                            ["parti36_ALDIGI_OY"] = p.p36,
+                            ["parti37_ALDIGI_OY"] = p.p37,
+                            ["parti38_ALDIGI_OY"] = p.p38,
+                            ["parti39_ALDIGI_OY"] = p.p39,
+                            ["parti40_ALDIGI_OY"] = p.p40,
+                        };
+                        long toplam = partiOylar.Sum(p => p.Value);
 
-                    var data = sonuc
-                        .OrderByDescending(p => p.Oy)
-                        .Take(5)
-                        .ToList();
+                        return partiOylar
+                            .Where(x => x.Value > 0)
+                            .Select(x => new TumTurkiyeKazananPartiler
+                            {
+                                LogoPath = secimBasliklar.Where(b => b.column_NAME.ToLower() == x.Key.ToLower().ToLower()).Select(s => s.LogoPath).FirstOrDefault(),
+                                Legend = secimBasliklar.Where(b => b.column_NAME.ToLower() == x.Key.ToLower().ToLower()).Select(s => s.Legend).FirstOrDefault(),
+                                Parti = secimBasliklar.Where(b => b.column_NAME.ToLower() == x.Key.ToLower()).Select(s => s.ad).FirstOrDefault(),
+                                Oy = x.Value,
+                                Oran = Math.Round((double)x.Value * 100 / toplam, 2)
+                            })
+                            .OrderByDescending(x => x.Oy)
+                            .Take(5)
+                            .ToList();
 
-                    result.SetData(data);
-                    result.SetMessage("İşlem Başarı ile gerçekleştirildi.");
+                    }).FirstOrDefault();
+
+                    result.SetData(sonuc);
+                    result.SetMessage("İşlem başarı ile gerçekleştirildi.");
 
                 }
                 catch (Exception ex)
@@ -513,75 +602,120 @@ namespace ElectionManagement.Services
                 try
                 {
                     var secimBasliklar = await _dbContext.SecimSonucBasliklar.Where(x => x.SecimId == electionId).ToListAsync();
-                    var toplamGecerliOy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => s.gecerli_OY_TOPLAMI);
 
-                    var sonuc = new List<TumTurkiyeKazananPartiler>
-    {
-        new TumTurkiyeKazananPartiler { Parti = "parti1_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti1_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti2_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti2_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti3_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti3_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti4_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti4_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti5_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti5_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti6_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti6_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti7_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti7_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti8_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti8_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti9_ALDIGI_OY",  Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti9_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti10_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti10_ALDIGI_OY) },
+                    var partiToplamOylari = await _dbContext.SecimSonuclar
+                            .Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId)
+                            .GroupBy(s => s.ilce_ID)
+                            .Select(g => new
+                            {
+                                p1 = g.Sum(x => x.parti1_ALDIGI_OY),
+                                p2 = g.Sum(x => x.parti2_ALDIGI_OY),
+                                p3 = g.Sum(x => x.parti3_ALDIGI_OY),
+                                p4 = g.Sum(x => x.parti4_ALDIGI_OY),
+                                p5 = g.Sum(x => x.parti5_ALDIGI_OY),
+                                p6 = g.Sum(x => x.parti6_ALDIGI_OY),
+                                p7 = g.Sum(x => x.parti7_ALDIGI_OY),
+                                p8 = g.Sum(x => x.parti8_ALDIGI_OY),
+                                p9 = g.Sum(x => x.parti9_ALDIGI_OY),
+                                p10 = g.Sum(x => x.parti10_ALDIGI_OY),
+                                p11 = g.Sum(x => x.parti11_ALDIGI_OY),
+                                p12 = g.Sum(x => x.parti12_ALDIGI_OY),
+                                p13 = g.Sum(x => x.parti13_ALDIGI_OY),
+                                p14 = g.Sum(x => x.parti14_ALDIGI_OY),
+                                p15 = g.Sum(x => x.parti15_ALDIGI_OY),
+                                p16 = g.Sum(x => x.parti16_ALDIGI_OY),
+                                p17 = g.Sum(x => x.parti17_ALDIGI_OY),
+                                p18 = g.Sum(x => x.parti18_ALDIGI_OY),
+                                p19 = g.Sum(x => x.parti19_ALDIGI_OY),
+                                p20 = g.Sum(x => x.parti20_ALDIGI_OY),
+                                p21 = g.Sum(x => x.parti21_ALDIGI_OY),
+                                p22 = g.Sum(x => x.parti22_ALDIGI_OY),
+                                p23 = g.Sum(x => x.parti23_ALDIGI_OY),
+                                p24 = g.Sum(x => x.parti24_ALDIGI_OY),
+                                p25 = g.Sum(x => x.parti25_ALDIGI_OY),
+                                p26 = g.Sum(x => x.parti26_ALDIGI_OY),
+                                p27 = g.Sum(x => x.parti27_ALDIGI_OY),
+                                p28 = g.Sum(x => x.parti28_ALDIGI_OY),
+                                p29 = g.Sum(x => x.parti29_ALDIGI_OY),
+                                p30 = g.Sum(x => x.parti30_ALDIGI_OY),
+                                p31 = g.Sum(x => x.parti31_ALDIGI_OY),
+                                p32 = g.Sum(x => x.parti32_ALDIGI_OY),
+                                p33 = g.Sum(x => x.parti33_ALDIGI_OY),
+                                p34 = g.Sum(x => x.parti34_ALDIGI_OY),
+                                p35 = g.Sum(x => x.parti35_ALDIGI_OY),
+                                p36 = g.Sum(x => x.parti36_ALDIGI_OY),
+                                p37 = g.Sum(x => x.parti37_ALDIGI_OY),
+                                p38 = g.Sum(x => x.parti38_ALDIGI_OY),
+                                p39 = g.Sum(x => x.parti39_ALDIGI_OY),
+                                p40 = g.Sum(x => x.parti40_ALDIGI_OY)
+                            })
+                            .ToListAsync();
 
-        new TumTurkiyeKazananPartiler { Parti = "parti11_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti11_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti12_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti12_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti13_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti13_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti14_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti14_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti15_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti15_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti16_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti16_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti17_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti17_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti18_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti18_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti19_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti19_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti20_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti20_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti21_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti21_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti22_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti22_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti23_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti23_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti24_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti24_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti25_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti25_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti26_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti26_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti27_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti27_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti28_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti28_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti29_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti29_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti30_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti30_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti31_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti31_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti32_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti32_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti33_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti33_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti34_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti34_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti35_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti35_ALDIGI_OY) },
-
-        new TumTurkiyeKazananPartiler { Parti = "parti36_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti36_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti37_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti37_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti38_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti38_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti39_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti39_ALDIGI_OY) },
-        new TumTurkiyeKazananPartiler { Parti = "parti40_ALDIGI_OY", Oy = await _dbContext.SecimSonuclar.Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId).SumAsync(s => (long)s.parti40_ALDIGI_OY) }
-    };
-
-                    sonuc.ForEach(p =>
+                    var sonuc = partiToplamOylari.Select(p =>
                     {
-                        p.LogoPath = secimBasliklar.Where(b => b.column_NAME.ToLower() == p.Parti.ToLower()).Select(s => s.LogoPath).FirstOrDefault();
-                        p.Legend = secimBasliklar.Where(b => b.column_NAME.ToLower() == p.Parti.ToLower()).Select(s => s.Legend).FirstOrDefault();
-                        p.Parti = secimBasliklar.Where(b => b.column_NAME.ToLower() == p.Parti.ToLower()).Select(s => s.ad).FirstOrDefault();
-                        p.Oran = toplamGecerliOy == 0
-                            ? 0
-                            : Math.Round((double)p.Oy / toplamGecerliOy * 100, 2);
-                    });
+                        var partiOylar = new Dictionary<string, long>
+                        {
+                            ["parti1_ALDIGI_OY"] = p.p1,
+                            ["parti2_ALDIGI_OY"] = p.p2,
+                            ["parti3_ALDIGI_OY"] = p.p3,
+                            ["parti4_ALDIGI_OY"] = p.p4,
+                            ["parti5_ALDIGI_OY"] = p.p5,
+                            ["parti6_ALDIGI_OY"] = p.p6,
+                            ["parti7_ALDIGI_OY"] = p.p7,
+                            ["parti8_ALDIGI_OY"] = p.p8,
+                            ["parti9_ALDIGI_OY"] = p.p9,
+                            ["parti10_ALDIGI_OY"] = p.p10,
+                            ["parti11_ALDIGI_OY"] = p.p11,
+                            ["parti12_ALDIGI_OY"] = p.p12,
+                            ["parti13_ALDIGI_OY"] = p.p13,
+                            ["parti14_ALDIGI_OY"] = p.p14,
+                            ["parti15_ALDIGI_OY"] = p.p15,
+                            ["parti16_ALDIGI_OY"] = p.p16,
+                            ["parti17_ALDIGI_OY"] = p.p17,
+                            ["parti18_ALDIGI_OY"] = p.p18,
+                            ["parti19_ALDIGI_OY"] = p.p19,
+                            ["parti20_ALDIGI_OY"] = p.p20,
+                            ["parti21_ALDIGI_OY"] = p.p21,
+                            ["parti22_ALDIGI_OY"] = p.p22,
+                            ["parti23_ALDIGI_OY"] = p.p23,
+                            ["parti24_ALDIGI_OY"] = p.p24,
+                            ["parti25_ALDIGI_OY"] = p.p25,
+                            ["parti26_ALDIGI_OY"] = p.p26,
+                            ["parti27_ALDIGI_OY"] = p.p27,
+                            ["parti28_ALDIGI_OY"] = p.p28,
+                            ["parti29_ALDIGI_OY"] = p.p29,
+                            ["parti30_ALDIGI_OY"] = p.p30,
+                            ["parti31_ALDIGI_OY"] = p.p31,
+                            ["parti32_ALDIGI_OY"] = p.p32,
+                            ["parti33_ALDIGI_OY"] = p.p33,
+                            ["parti34_ALDIGI_OY"] = p.p34,
+                            ["parti35_ALDIGI_OY"] = p.p35,
+                            ["parti36_ALDIGI_OY"] = p.p36,
+                            ["parti37_ALDIGI_OY"] = p.p37,
+                            ["parti38_ALDIGI_OY"] = p.p38,
+                            ["parti39_ALDIGI_OY"] = p.p39,
+                            ["parti40_ALDIGI_OY"] = p.p40,
+                        };
+                        long toplam = partiOylar.Sum(p => p.Value);
 
-                    var data = sonuc
-                        .OrderByDescending(p => p.Oy)
-                        .Take(5)
-                        .ToList();
+                        return partiOylar
+                            .Where(x => x.Value > 0)
+                            .Select(x => new TumTurkiyeKazananPartiler
+                            {
+                                LogoPath = secimBasliklar.Where(b => b.column_NAME.ToLower() == x.Key.ToLower().ToLower()).Select(s => s.LogoPath).FirstOrDefault(),
+                                Legend = secimBasliklar.Where(b => b.column_NAME.ToLower() == x.Key.ToLower().ToLower()).Select(s => s.Legend).FirstOrDefault(),
+                                Parti = secimBasliklar.Where(b => b.column_NAME.ToLower() == x.Key.ToLower()).Select(s => s.ad).FirstOrDefault(),
+                                Oy = x.Value,
+                                Oran = Math.Round((double)x.Value * 100 / toplam, 2)
+                            })
+                            .OrderByDescending(x => x.Oy)
+                            .Take(5)
+                            .ToList();
 
-                    result.SetData(data);
-                    result.SetMessage("İşlem Başarı ile gerçekleştirildi.");
+                    }).FirstOrDefault();
+
+                    result.SetData(sonuc);
+                    result.SetMessage("İşlem başarı ile gerçekleştirildi.");
 
                 }
                 catch (Exception ex)
@@ -655,7 +789,7 @@ namespace ElectionManagement.Services
                     var secimBasliklar = await _dbContext.SecimSonucBasliklar.Where(x => x.SecimId == electionId).ToListAsync();
 
                     var sonuc = ilPartiOyOranlari.Select(il =>
-                    {   
+                    {
                         var partiOylar = new Dictionary<string, long>
                         {
                             ["parti1_ALDIGI_OY"] = il.p1,
