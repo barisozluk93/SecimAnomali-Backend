@@ -1,5 +1,4 @@
-﻿using Duende.IdentityServer.Models;
-using ElectionManagement.DbContexts;
+﻿using ElectionManagement.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ElectionManagement.DbContexts;
