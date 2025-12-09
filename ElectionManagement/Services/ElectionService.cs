@@ -1171,5 +1171,45 @@ namespace ElectionManagement.Services
             return result;
         }
 
+        public async Task<Result<List<SecimSonucCSV>>> GetDistrictResultCSVFormat(long cityId, long districtId)
+        {
+            var result = new Result<List<SecimSonucCSV>>();
+
+            try
+            {
+                var elections = await _dbContext.Secimler.OrderByDescending(o => o.SecimTarihi).ToListAsync();
+                var data = new List<SecimSonucCSV>();
+                foreach (var election in elections)
+                {
+                    var cityResult = await GetElectionResultByDistrict(election.Id, cityId);
+                    var cityResultData = cityResult.GetData();
+
+                    var districtData = cityResultData.Where(i => i.IlceId == districtId).FirstOrDefault();
+                    var item = new SecimSonucCSV();
+                    item.Il = await _dbContext.SecimIller.Where(i => i.il_ID == cityId).Select(s => s.il_ADI).FirstOrDefaultAsync();
+                    item.Ilce = districtData.Ilce;
+                    item.Secim = election.SecimAdi;
+                    item.Tarih = election.SecimTarihi.ToString("dd/MM/yyyy");
+                    item.ToplamKullanilanOy = districtData.ToplamOy;
+                    item.Akp = districtData.Partiler.Where(x => x.Parti == "AK PARTİ").Select(s => s.Oy).FirstOrDefault();
+                    item.Chp = districtData.Partiler.Where(x => x.Parti == "CHP").Select(s => s.Oy).FirstOrDefault();
+                    item.Mhp = districtData.Partiler.Where(x => x.Parti == "MHP").Select(s => s.Oy).FirstOrDefault();
+                    item.Dem = districtData.Partiler.Where(x => x.Parti == "HDP" || x.Parti == "YEŞİL SOL PARTİ").Select(s => s.Oy).FirstOrDefault();
+                    item.Saadet = districtData.Partiler.Where(x => x.Parti == "SAADET").Select(s => s.Oy).FirstOrDefault();
+
+                    data.Add(item);
+                }
+
+                result.SetData(data);
+                result.SetMessage("İşlem Başarı ile gerçekleştirildi.");
+            }
+            catch (Exception ex)
+            {
+                result.SetIsSuccess(false);
+                result.SetMessage(ex.Message);
+            }
+
+            return result;
+        }
     }
 }

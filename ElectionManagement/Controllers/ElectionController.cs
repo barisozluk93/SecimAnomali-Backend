@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.Design;
+﻿using CsvHelper;
 using ElectionManagement.Entity;
 using ElectionManagement.Interfaces;
 using ElectionManagement.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.Design;
+using System.Formats.Asn1;
+using System.Globalization;
+using System.Text;
 
 namespace ElectionManagement.Controllers
 {
@@ -124,6 +128,23 @@ namespace ElectionManagement.Controllers
             var result = await electionService.GetTurkeyElectionPartyResultByDistrict(electionId, cityId, districtId);
 
             return new OkObjectResult(result);
+        }
+
+        [HttpGet("GetDistrictResultCSVFormat/{cityId}/{districtId}")]
+
+        public async Task<IActionResult> GetDistrictResultCSVFormat(long cityId, long districtId)
+        {
+            var result = await electionService.GetDistrictResultCSVFormat(cityId, districtId);
+
+            var stream = new MemoryStream();
+            using (var writeFile = new StreamWriter(stream, new UTF8Encoding(true), leaveOpen: true))
+            {
+
+                var csv = new CsvWriter(writeFile, CultureInfo.InvariantCulture);
+                csv.WriteRecords(result.GetData());
+            }
+            stream.Position = 0; //reset stream
+            return File(stream, "application/octet-stream", "secim.csv");
         }
     }
 }

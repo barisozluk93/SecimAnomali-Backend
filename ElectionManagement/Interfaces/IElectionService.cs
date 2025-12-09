@@ -18,5 +18,6 @@ namespace ElectionManagement.Interfaces
         Task<Result<List<TumTurkiyeKazananPartiler>>> GetTurkeyElectionPartyResultByCity(long electionId, long cityId);
         Task<Result<List<TumTurkiyeKazananPartiler>>> GetTurkeyElectionPartyResultByDistrict(long electionId, long cityId, long districtId);
         Task<Result<List<SecimSonucBaslik>>> GetElectionHeaders(long electionId, long cityId);
+        Task<Result<List<SecimSonucCSV>>> GetDistrictResultCSVFormat(long cityId, long districtId);
     }
 }
