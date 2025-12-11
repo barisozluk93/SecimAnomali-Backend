@@ -9,6 +9,7 @@ namespace ElectionManagement.Model
 
         public string? Il { get; set; }
         public string? Ilce { get; set; }
+        public string? Mahalle { get; set; }
 
         //public long gecerli_OY_TOPLAMI { get; set; }
         //public long gecersiz_OY_TOPLAMI { get; set; }

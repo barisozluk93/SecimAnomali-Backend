@@ -1014,6 +1014,149 @@ namespace ElectionManagement.Services
             return result;
         }
 
+        public async Task<Result<List<IlceKazanan>>> GetElectionResultByNeighborhood(long electionId, long cityId, long districtId)
+        {
+            var result = new Result<List<IlceKazanan>>();
+
+            using (var transaction = _dbContext.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
+            {
+                try
+                {
+                    var ilcePartiOyOranlari = await _dbContext.SecimSonuclar
+                            .Where(x => x.SecimId == electionId && x.il_ID == cityId && x.ilce_ID == districtId)
+                            .GroupBy(s => s.muhtarlik_ID)
+                            .Select(g => new
+                            {
+                                Mahalle = _dbContext.SecimMahalleler.Where(x => x.muhtarlik_ID == g.Key).Select(s => s.muhtarlik_ADI).FirstOrDefault(),
+                                MahalleId = g.Key,
+                                p1 = g.Sum(x => x.parti1_ALDIGI_OY),
+                                p2 = g.Sum(x => x.parti2_ALDIGI_OY),
+                                p3 = g.Sum(x => x.parti3_ALDIGI_OY),
+                                p4 = g.Sum(x => x.parti4_ALDIGI_OY),
+                                p5 = g.Sum(x => x.parti5_ALDIGI_OY),
+                                p6 = g.Sum(x => x.parti6_ALDIGI_OY),
+                                p7 = g.Sum(x => x.parti7_ALDIGI_OY),
+                                p8 = g.Sum(x => x.parti8_ALDIGI_OY),
+                                p9 = g.Sum(x => x.parti9_ALDIGI_OY),
+                                p10 = g.Sum(x => x.parti10_ALDIGI_OY),
+                                p11 = g.Sum(x => x.parti11_ALDIGI_OY),
+                                p12 = g.Sum(x => x.parti12_ALDIGI_OY),
+                                p13 = g.Sum(x => x.parti13_ALDIGI_OY),
+                                p14 = g.Sum(x => x.parti14_ALDIGI_OY),
+                                p15 = g.Sum(x => x.parti15_ALDIGI_OY),
+                                p16 = g.Sum(x => x.parti16_ALDIGI_OY),
+                                p17 = g.Sum(x => x.parti17_ALDIGI_OY),
+                                p18 = g.Sum(x => x.parti18_ALDIGI_OY),
+                                p19 = g.Sum(x => x.parti19_ALDIGI_OY),
+                                p20 = g.Sum(x => x.parti20_ALDIGI_OY),
+                                p21 = g.Sum(x => x.parti21_ALDIGI_OY),
+                                p22 = g.Sum(x => x.parti22_ALDIGI_OY),
+                                p23 = g.Sum(x => x.parti23_ALDIGI_OY),
+                                p24 = g.Sum(x => x.parti24_ALDIGI_OY),
+                                p25 = g.Sum(x => x.parti25_ALDIGI_OY),
+                                p26 = g.Sum(x => x.parti26_ALDIGI_OY),
+                                p27 = g.Sum(x => x.parti27_ALDIGI_OY),
+                                p28 = g.Sum(x => x.parti28_ALDIGI_OY),
+                                p29 = g.Sum(x => x.parti29_ALDIGI_OY),
+                                p30 = g.Sum(x => x.parti30_ALDIGI_OY),
+                                p31 = g.Sum(x => x.parti31_ALDIGI_OY),
+                                p32 = g.Sum(x => x.parti32_ALDIGI_OY),
+                                p33 = g.Sum(x => x.parti33_ALDIGI_OY),
+                                p34 = g.Sum(x => x.parti34_ALDIGI_OY),
+                                p35 = g.Sum(x => x.parti35_ALDIGI_OY),
+                                p36 = g.Sum(x => x.parti36_ALDIGI_OY),
+                                p37 = g.Sum(x => x.parti37_ALDIGI_OY),
+                                p38 = g.Sum(x => x.parti38_ALDIGI_OY),
+                                p39 = g.Sum(x => x.parti39_ALDIGI_OY),
+                                p40 = g.Sum(x => x.parti40_ALDIGI_OY)
+                            })
+                            .ToListAsync();
+
+                    var secimBasliklar = await _dbContext.SecimSonucBasliklar.Where(x => x.SecimId == electionId).ToListAsync();
+
+                    var sonuc = ilcePartiOyOranlari.Select(ilce =>
+                    {
+                        var partiOylar = new Dictionary<string, long>
+                        {
+                            ["parti1_ALDIGI_OY"] = ilce.p1,
+                            ["parti2_ALDIGI_OY"] = ilce.p2,
+                            ["parti3_ALDIGI_OY"] = ilce.p3,
+                            ["parti4_ALDIGI_OY"] = ilce.p4,
+                            ["parti5_ALDIGI_OY"] = ilce.p5,
+                            ["parti6_ALDIGI_OY"] = ilce.p6,
+                            ["parti7_ALDIGI_OY"] = ilce.p7,
+                            ["parti8_ALDIGI_OY"] = ilce.p8,
+                            ["parti9_ALDIGI_OY"] = ilce.p9,
+                            ["parti10_ALDIGI_OY"] = ilce.p10,
+                            ["parti11_ALDIGI_OY"] = ilce.p11,
+                            ["parti12_ALDIGI_OY"] = ilce.p12,
+                            ["parti13_ALDIGI_OY"] = ilce.p13,
+                            ["parti14_ALDIGI_OY"] = ilce.p14,
+                            ["parti15_ALDIGI_OY"] = ilce.p15,
+                            ["parti16_ALDIGI_OY"] = ilce.p16,
+                            ["parti17_ALDIGI_OY"] = ilce.p17,
+                            ["parti18_ALDIGI_OY"] = ilce.p18,
+                            ["parti19_ALDIGI_OY"] = ilce.p19,
+                            ["parti20_ALDIGI_OY"] = ilce.p20,
+                            ["parti21_ALDIGI_OY"] = ilce.p21,
+                            ["parti22_ALDIGI_OY"] = ilce.p22,
+                            ["parti23_ALDIGI_OY"] = ilce.p23,
+                            ["parti24_ALDIGI_OY"] = ilce.p24,
+                            ["parti25_ALDIGI_OY"] = ilce.p25,
+                            ["parti26_ALDIGI_OY"] = ilce.p26,
+                            ["parti27_ALDIGI_OY"] = ilce.p27,
+                            ["parti28_ALDIGI_OY"] = ilce.p28,
+                            ["parti29_ALDIGI_OY"] = ilce.p29,
+                            ["parti30_ALDIGI_OY"] = ilce.p30,
+                            ["parti31_ALDIGI_OY"] = ilce.p31,
+                            ["parti32_ALDIGI_OY"] = ilce.p32,
+                            ["parti33_ALDIGI_OY"] = ilce.p33,
+                            ["parti34_ALDIGI_OY"] = ilce.p34,
+                            ["parti35_ALDIGI_OY"] = ilce.p35,
+                            ["parti36_ALDIGI_OY"] = ilce.p36,
+                            ["parti37_ALDIGI_OY"] = ilce.p37,
+                            ["parti38_ALDIGI_OY"] = ilce.p38,
+                            ["parti39_ALDIGI_OY"] = ilce.p39,
+                            ["parti40_ALDIGI_OY"] = ilce.p40,
+                        };
+
+                        long toplam = partiOylar.Sum(p => p.Value);
+
+                        var oranlar = partiOylar
+                            .Where(x => x.Value > 0)
+                            .Select(x => new IlceKazananPartiler
+                            {
+                                Parti = secimBasliklar.Where(b => b.column_NAME.ToLower() == x.Key.ToLower()).Select(s => s.ad).FirstOrDefault(),
+                                Oy = x.Value,
+                                Oran = Math.Round((double)x.Value * 100 / toplam, 2)
+                            })
+                            .OrderByDescending(x => x.Oy)
+                            .ToList();
+
+                        return new IlceKazanan
+                        {
+                            Mahalle = ilce.Mahalle,
+                            MahalleId = ilce.MahalleId,
+                            Legend = secimBasliklar.Where(b => b.ad == oranlar[0].Parti).Select(s => s.Legend).FirstOrDefault(),
+                            ToplamOy = toplam,
+                            Partiler = oranlar
+                        };
+                    })
+                    .ToList();
+
+                    result.SetData(sonuc);
+                    result.SetMessage("İşlem başarı ile gerçekleştirildi.");
+                }
+                catch (Exception ex)
+                {
+                    result.SetIsSuccess(false);
+                    result.SetMessage(ex.Message);
+                }
+            }
+
+            return result;
+        }
+
         public async Task<Result<SecimGenelSonuc>> GetElectionGeneralResult(long electionId, long cityId, long districtId, long neighborhoodId)
         {
             var result = new Result<SecimGenelSonuc>();
@@ -1181,23 +1324,28 @@ namespace ElectionManagement.Services
                 var data = new List<SecimSonucCSV>();
                 foreach (var election in elections)
                 {
-                    var cityResult = await GetElectionResultByDistrict(election.Id, cityId);
-                    var cityResultData = cityResult.GetData();
+                    var districtResult = await GetElectionResultByNeighborhood(election.Id, cityId, districtId);
+                    var districtDataList = districtResult.GetData();
 
-                    var districtData = cityResultData.Where(i => i.IlceId == districtId).FirstOrDefault();
-                    var item = new SecimSonucCSV();
-                    item.Il = await _dbContext.SecimIller.Where(i => i.il_ID == cityId).Select(s => s.il_ADI).FirstOrDefaultAsync();
-                    item.Ilce = districtData.Ilce;
-                    item.Secim = election.SecimAdi;
-                    item.Tarih = election.SecimTarihi.ToString("dd/MM/yyyy");
-                    item.ToplamKullanilanOy = districtData.ToplamOy;
-                    item.Akp = districtData.Partiler.Where(x => x.Parti == "AK PARTİ").Select(s => s.Oy).FirstOrDefault();
-                    item.Chp = districtData.Partiler.Where(x => x.Parti == "CHP").Select(s => s.Oy).FirstOrDefault();
-                    item.Mhp = districtData.Partiler.Where(x => x.Parti == "MHP").Select(s => s.Oy).FirstOrDefault();
-                    item.Dem = districtData.Partiler.Where(x => x.Parti == "HDP" || x.Parti == "YEŞİL SOL PARTİ").Select(s => s.Oy).FirstOrDefault();
-                    item.Saadet = districtData.Partiler.Where(x => x.Parti == "SAADET").Select(s => s.Oy).FirstOrDefault();
+                    var il = await _dbContext.SecimIller.Where(i => i.il_ID == cityId).Select(s => s.il_ADI).FirstOrDefaultAsync();
+                    var ilce = await _dbContext.SecimIlceler.Where(i => i.ilce_ID == districtId).Select(s => s.ilce_ADI).FirstOrDefaultAsync();
+                    foreach (var districtData in districtDataList)
+                    {
+                        var item = new SecimSonucCSV();
+                        item.Il = il;
+                        item.Ilce = ilce;
+                        item.Mahalle = districtData.Mahalle;
+                        item.Secim = election.SecimAdi;
+                        item.Tarih = election.SecimTarihi.ToString("dd/MM/yyyy");
+                        item.ToplamKullanilanOy = districtData.ToplamOy;
+                        item.Akp = districtData.Partiler.Where(x => x.Parti == "AK PARTİ").Select(s => s.Oy).FirstOrDefault();
+                        item.Chp = districtData.Partiler.Where(x => x.Parti == "CHP").Select(s => s.Oy).FirstOrDefault();
+                        item.Mhp = districtData.Partiler.Where(x => x.Parti == "MHP").Select(s => s.Oy).FirstOrDefault();
+                        item.Dem = districtData.Partiler.Where(x => x.Parti == "HDP" || x.Parti == "YEŞİL SOL PARTİ").Select(s => s.Oy).FirstOrDefault();
+                        item.Saadet = districtData.Partiler.Where(x => x.Parti == "SAADET").Select(s => s.Oy).FirstOrDefault();
 
-                    data.Add(item);
+                        data.Add(item);
+                    }
                 }
 
                 result.SetData(data);
