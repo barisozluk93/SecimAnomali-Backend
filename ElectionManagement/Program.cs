@@ -24,16 +24,44 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ElectionManagementDbContext>(options =>
         options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
+//il, ilçe ve mahalle verilerini çeken background servisleri
 builder.Services.AddHostedService<SecimIlBackgroundService>();
-builder.Services.AddHostedService<SecimIlceBackgroundService>();
-builder.Services.AddHostedService<SecimMahalleBackgroundService>();
-builder.Services.AddHostedService<SecimGenelSonucBackgroundService>();
-builder.Services.AddHostedService<SecimGenelSonucIlBackgroundService>();
-builder.Services.AddHostedService<SecimGenelSonucIlceBackgroundService>();
-builder.Services.AddHostedService<SecimGenelSonucMahalleBackgroundService>();
-builder.Services.AddHostedService<SecimSonucBaslikBackgroundService>();
-builder.Services.AddHostedService<SecimSonucIlBaslikBackgroundService>();
-builder.Services.AddHostedService<SecimSonucBackgroundService>();
+//builder.Services.AddHostedService<SecimIlceBackgroundService>();
+//builder.Services.AddHostedService<SecimMahalleBackgroundService>();
+
+//Seçmen ve sandýk verilerini çeken background servisleri
+builder.Services.AddHostedService<SecimIlceSecmenCinsiyetDagilimBackgroundService>();
+builder.Services.AddHostedService<SecimIlceSecmenSandikSayilariBackgroundService>();
+builder.Services.AddHostedService<SecimYurtdisiSecmenYasveCinsiyetDagilimiBackgroundService>();
+
+//Seçim siyasi parti verilerini çeken background servisleri
+builder.Services.AddHostedService<SecimSiyasiPartilerBackgroundService>();
+builder.Services.AddHostedService<SecimIlceSandikSiyasiPartiBackgroundService>();
+
+//Aday verilerini çeken background servisleri   
+builder.Services.AddHostedService<SecimIlAdayYasDagilimBackgroundService>();
+builder.Services.AddHostedService<SecimIlAdayCinsiyetDagilimBackgroundService>();
+builder.Services.AddHostedService<SecimIlAdayOgrenimDurumuDagilimBackgroundService>();
+builder.Services.AddHostedService<SecimMilletVekiliBackgroundService>();
+builder.Services.AddHostedService<SecimAdayBackgroundService>();
+
+//Seçim Görevli verilerini çeken background servisleri   
+builder.Services.AddHostedService<SecimIlceSiyasiPartiSandikGorevlileriBackgroundService>();
+
+//Diger Secim Sonuc Verileri
+builder.Services.AddHostedService<SecimGumrukSonuclariBackgroundService>();
+builder.Services.AddHostedService<SecimTemsilcilikSonuclariBackgroundService>();
+builder.Services.AddHostedService<SecimTemsilcilikListeleriBackgroundService>();
+builder.Services.AddHostedService<SecimGumrukListeleriBackgroundService>();
+
+// Seçim Sonuç verilerini çeken background servisleri
+//builder.Services.AddHostedService<SecimGenelSonucBackgroundService>();
+//builder.Services.AddHostedService<SecimGenelSonucIlBackgroundService>();
+//builder.Services.AddHostedService<SecimGenelSonucIlceBackgroundService>();
+//builder.Services.AddHostedService<SecimGenelSonucMahalleBackgroundService>();
+//builder.Services.AddHostedService<SecimSonucBaslikBackgroundService>();
+//builder.Services.AddHostedService<SecimSonucIlBaslikBackgroundService>();
+//builder.Services.AddHostedService<SecimSonucBackgroundService>();
 
 builder.Services.AddScoped<IElectionService, ElectionService>();
 

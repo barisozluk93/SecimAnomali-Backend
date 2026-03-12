@@ -7,7 +7,8 @@ namespace ElectionManagement.Entity
     {
         [Key]
         public long Id { get; set; }
-        //public string? id { get; set; }
+        [NotMapped]
+        public string? id { get; set; }
         public string? il_ADI {  get; set; }
         public int il_ID { get; set; }
         public string? ilce_ADI { get; set; }
